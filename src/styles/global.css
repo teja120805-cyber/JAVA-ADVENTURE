@@ -1,0 +1,310 @@
+/* Design tokens. Light theme by default; [data-theme="dark"] swaps them. */
+:root {
+  --green: #04aa6d;
+  --green-dark: #059862;
+  --green-soft: #e7f7ef;
+  --green-ink: #03784d;
+  --navy: #282a35;
+  --yellow: #fff4a3;
+  --gold: #ffc531;
+  --gold-dark: #c98d00;
+  --red: #e5484d;
+  --red-soft: #fdeceb;
+  --blue: #2f80ed;
+  --purple: #7c5cd6;
+
+  --bg: #f3f5f4;
+  --surface: #ffffff;
+  --surface-2: #f6f7f9;
+  --border: #e1e5e8;
+  --text: #22252e;
+  --text-muted: #5d6573;
+  --shadow: 0 2px 4px rgba(20, 30, 40, 0.06), 0 8px 24px rgba(20, 30, 40, 0.08);
+  --shadow-lg: 0 12px 40px rgba(20, 30, 40, 0.18);
+  --shadow-ink: rgba(0, 0, 0, 0.12);
+  --star-empty: #dfe3e8;
+  --star-empty-edge: #c3c9d0;
+  --avatar-bg: #e7f7ef;
+  --bubble: #ffffff;
+  --code-bg: #f1f3f5;
+  --code-ink: #c7254e;
+  --console-bg: #1d2029;
+  --console-ink: #e7e9ee;
+
+  --scenery-leaf: #4caf63;
+  --scenery-leaf-light: #7fd38e;
+  --scenery-pine: #2f7d4f;
+  --scenery-petal: #ff8fb1;
+  --scenery-rock: #a9b2bb;
+  --scenery-stone: #b7aec9;
+  --scenery-roof: #7c5cd6;
+
+  --region-meadow: linear-gradient(180deg, #e9f8e3 0%, #d7f1cf 100%);
+  --region-forest: linear-gradient(180deg, #d8efe4 0%, #bfe3d2 100%);
+  --region-castle: linear-gradient(180deg, #e8e4f5 0%, #d9d2ef 100%);
+  --path: #e9d9b6;
+  --path-edge: #d4bf92;
+
+  --radius: 14px;
+  --radius-sm: 9px;
+  --font-body: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Fredoka', 'Source Sans 3', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --topbar-h: 64px;
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --green: #19c785;
+  --green-dark: #04aa6d;
+  --green-soft: #12352a;
+  --green-ink: #5fe0ab;
+  --red-soft: #3a1d20;
+  --yellow: #4a4420;
+
+  --bg: #13151b;
+  --surface: #1d2028;
+  --surface-2: #252935;
+  --border: #323746;
+  --text: #e8eaef;
+  --text-muted: #a2a9b8;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-ink: rgba(0, 0, 0, 0.35);
+  --star-empty: #3a3f4d;
+  --star-empty-edge: #4b5163;
+  --avatar-bg: #12352a;
+  --bubble: #262a35;
+  --code-bg: #2a2f3b;
+  --code-ink: #ff9bb5;
+  --console-bg: #0d0f14;
+
+  --scenery-leaf: #2f8a4a;
+  --scenery-leaf-light: #46a862;
+  --scenery-pine: #1f5e3b;
+  --scenery-petal: #d76a8e;
+  --scenery-rock: #5f6875;
+  --scenery-stone: #5c5470;
+  --scenery-roof: #5d43ad;
+
+  --region-meadow: linear-gradient(180deg, #17261b 0%, #1a2e1e 100%);
+  --region-forest: linear-gradient(180deg, #132520 0%, #10201b 100%);
+  --region-castle: linear-gradient(180deg, #1e1a2e 0%, #1a1628 100%);
+  --path: #4a4231;
+  --path-edge: #5d5440;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+p {
+  margin: 0 0 0.75em;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-code);
+  font-size: 0.88em;
+}
+
+:not(pre) > code {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+}
+
+.markup-pre {
+  background: var(--code-bg);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  overflow-x: auto;
+  margin: 0 0 0.75em;
+}
+
+a {
+  color: var(--green-ink);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* Shared button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: var(--surface-2);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--green-dark);
+}
+[data-theme='dark'] .btn-primary {
+  color: #08130e;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+.btn-gold {
+  background: var(--gold);
+  color: #3b2a00;
+  box-shadow: 0 3px 0 var(--gold-dark);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+.btn-danger {
+  background: var(--red);
+  color: #fff;
+}
+.btn-small {
+  min-height: 32px;
+  padding: 4px 12px;
+  font-size: 0.9rem;
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+/* Lists inside lesson text */
+.markup ul,
+.markup ol {
+  margin: 0 0 0.75em;
+  padding-left: 1.3em;
+}
+.markup li {
+  margin: 0.15em 0;
+}
+.markup > :last-child {
+  margin-bottom: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.loading {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 600;
+}

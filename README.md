@@ -7,22 +7,82 @@ Java Quest is an adventure-mode game for learning Java. You travel across a worl
 - **Rewards**: XP and player levels, coins, a day streak, 0 to 3 stars per level, and a badge for each region
 - **Light and dark mode**, mobile layout, keyboard friendly
 
-> ⚠️ **Local use only.** The code runner executes whatever code is typed into the editor, using a simple process sandbox (a 5-second time limit and an output limit). It does **not** stop code from reading or writing files, so **do not deploy this server publicly as it is.** It listens on `127.0.0.1` only.
+Java Quest runs **on your own computer**: there's no website to sign up for. Follow the steps below once, and you're ready to play.
 
 ---
 
-## Requirements
+## 🎮 Play it on your computer
+
+You need two free programs and the game files. It takes about 10 minutes the first time.
+
+### 1. Install Node.js
+
+Download the **LTS** version from <https://nodejs.org> and run the installer with the default options. You need version 20 or newer.
+
+### 2. Install Java
+
+Download **Temurin 21 (LTS)** from <https://adoptium.net> and run the installer with the default options. Any JDK 17 or newer works.
+
+- **Windows** shortcut: open PowerShell and run `winget install EclipseAdoptium.Temurin.21.JDK`
+- **Mac** with Homebrew: `brew install --cask temurin@21`
+- **Linux** (Ubuntu/Debian): `sudo apt install openjdk-21-jdk`
+
+### 3. Download the game
+
+On this GitHub page, click the green **Code** button, then **Download ZIP**, and unzip it somewhere easy to find, such as your Desktop.
+
+If you use Git, you can run `git clone https://github.com/teja120805-cyber/JAVA-ADVENTURE.git` instead.
+
+### 4. Open a terminal in the game folder
+
+- **Windows:** open the unzipped folder (the one with `package.json` in it), click the address bar at the top, type `cmd` and press **Enter**.
+- **Mac:** right-click the folder in Finder and choose **New Terminal at Folder**.
+- **Linux:** right-click inside the folder and choose **Open in Terminal**.
+
+Open a **new** terminal after installing Node.js and Java, so it can find them. To check, run `node -v` and `java -version`: both should print a version number.
+
+### 5. Start the game
+
+```bash
+npm install      # first time only: downloads the game's libraries
+npm run dev      # starts the game
+```
+
+Then open **<http://localhost:5173>** in your browser and click the glowing level on the map. 🎉
+
+**Next time** you want to play, open a terminal in the folder (step 4), run `npm run dev`, and open the link again. Press `Ctrl+C` in the terminal to stop the game. Your progress is saved in your browser, so use the same browser each time.
+
+**Getting the latest version:** download the ZIP again, or run `git pull` if you cloned it. Then run `npm install` and `npm run dev`. Your progress is kept.
+
+> ⚠️ **Why it runs on your own computer:** the game runs whatever Java code is typed into the editor, with only a simple 5-second time limit and an output limit. That's fine on your own machine, but the runner doesn't stop code from reading or writing files. So **don't put this server on the internet as it is**, or share your running copy with tools like ngrok. It only accepts connections from your own computer (`127.0.0.1`).
+
+---
+
+## How to play
+
+- Click the glowing node on the map (or **Continue** in the top bar) to open the next level.
+- Read Bean's steps. **Try it** loads an example into the editor so you can run and change it.
+- Answer the quick checks, then solve the challenge and press **Submit**.
+- **Stars**: 1 for solving, +1 for using no hints, +1 for passing on the first submission.
+- Hidden test details (inputs and expected output) are revealed after 2 failed submissions.
+- Shortcuts: `Ctrl+Enter` runs, `Ctrl+Shift+Enter` submits. In the editor, press `Esc` then `Tab` to move focus out.
+- Use the **Input** button to type keyboard input for programs that use `Scanner`.
+- Progress is saved in your browser (`localStorage`). Open the profile/settings menu (your avatar) to change your name and avatar, switch dark mode, **unlock all levels** (for testing), or **reset progress**.
+
+---
+
+## For developers
+
+### Requirements
 
 | Tool | Version | Check with |
 | --- | --- | --- |
 | Node.js | 20 or newer | `node -v` |
 | JDK (Java Development Kit) | 17 or newer | `java -version` |
 
-**No Java yet?** Install **Temurin 21 (LTS)** from <https://adoptium.net>. On Windows you can run
-`winget install EclipseAdoptium.Temurin.21.JDK`. Afterwards, close and reopen your terminal so `java` is on your PATH.
-If the game can't find Java it shows a yellow banner with these steps and a **Check again** button.
+If the game can't find Java it shows a yellow banner with install steps and a **Check again** button.
 
-## Run it
+### Run it
 
 ```bash
 npm install      # first time only
@@ -48,17 +108,6 @@ Press `Ctrl+C` in the terminal to stop both.
 | `npm run typecheck` | TypeScript check |
 | `npm run build` | Production build of the website into `dist/` |
 | `npm start` | Serve the production build plus the runner (run `npm run build` first) |
-
-## How to play
-
-- Click the glowing node on the map (or **Continue** in the top bar) to open the next level.
-- Read Bean's steps. **Try it** loads an example into the editor so you can run and change it.
-- Answer the quick checks, then solve the challenge and press **Submit**.
-- **Stars**: 1 for solving, +1 for using no hints, +1 for passing on the first submission.
-- Hidden test details (inputs and expected output) are revealed after 2 failed submissions.
-- Shortcuts: `Ctrl+Enter` runs, `Ctrl+Shift+Enter` submits. In the editor, press `Esc` then `Tab` to move focus out.
-- Use the **Input** button to type keyboard input for programs that use `Scanner`.
-- Progress is saved in your browser (`localStorage`). Open the profile/settings menu (your avatar) to change your name and avatar, switch dark mode, **unlock all levels** (for testing), or **reset progress**.
 
 ## Project structure
 
@@ -162,6 +211,9 @@ Tip: write code inside the `` java`...` `` tag. It keeps backslashes such as `"\
 
 ## Troubleshooting
 
+- **`npm` or `node` is "not recognized" / "command not found"**: Node.js isn't installed, or the terminal was opened before installing it. Install it (step 1), then open a **new** terminal.
+- **`npm install` says it can't find `package.json`**: the terminal isn't in the game folder. Open it in the folder that contains `package.json` (step 4). After unzipping, this is sometimes a folder *inside* the unzipped folder.
+- **The page at localhost:5173 won't load**: the game isn't running. Keep the terminal with `npm run dev` open while you play.
 - **"The code runner isn't running"**: start the game with `npm run dev`, not just `vite`.
 - **"Java needs to be installed"**: install a JDK 17+ (see above), reopen the terminal, then press **Check again**.
 - **Port already in use**: something else is using 5173 or 3001. Stop it, or run the server with `PORT=4000` and change the proxy in `vite.config.ts`.

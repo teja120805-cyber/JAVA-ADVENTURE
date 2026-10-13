@@ -13,7 +13,7 @@ import {
   type Reward,
   type Settings,
 } from '../lib/progress';
-import { loadState, saveState } from '../lib/storage';
+import { saveState } from '../lib/storage';
 
 interface GameApi {
   state: GameState;
@@ -31,8 +31,8 @@ interface GameApi {
 
 const GameContext = createContext<GameApi | null>(null);
 
-export function GameProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<GameState>(loadState);
+export function GameProvider({ initialState, children }: { initialState: GameState; children: ReactNode }) {
+  const [state, setState] = useState<GameState>(initialState);
   const order = useMemo(() => orderedLevelIds(regions), []);
 
   useEffect(() => saveState(state), [state]);
@@ -45,7 +45,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
   // so actions like pass() can return their result to the caller.
   const latest = useRef(state);
   const commit = useCallback((change: (s: GameState) => GameState) => {
-    latest.current = change(latest.current);
+    const next = change(latest.current);
+    if (next === latest.current) return;
+    latest.current = { ...next, updatedAt: Date.now() };
     setState(latest.current);
   }, []);
 

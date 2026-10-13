@@ -50,7 +50,7 @@ npm run dev      # starts the game
 
 Then open **<http://localhost:5173>** in your browser and click the glowing level on the map. 🎉
 
-**Next time** you want to play, open a terminal in the folder (step 4), run `npm run dev`, and open the link again. Press `Ctrl+C` in the terminal to stop the game. Your progress is saved in your browser, so use the same browser each time.
+**Next time** you want to play, open a terminal in the folder (step 4), run `npm run dev`, and open the link again. Press `Ctrl+C` in the terminal to stop the game. Your progress is saved automatically to a file on your computer (`.java-quest/save.json` in your user folder), so it's kept when you close the game, and it works in any browser.
 
 **Getting the latest version:** download the ZIP again, or run `git pull` if you cloned it. Then run `npm install` and `npm run dev`. Your progress is kept.
 
@@ -67,7 +67,7 @@ Then open **<http://localhost:5173>** in your browser and click the glowing leve
 - Hidden test details (inputs and expected output) are revealed after 2 failed submissions.
 - Shortcuts: `Ctrl+Enter` runs, `Ctrl+Shift+Enter` submits. In the editor, press `Esc` then `Tab` to move focus out.
 - Use the **Input** button to type keyboard input for programs that use `Scanner`.
-- Progress is saved in your browser (`localStorage`). Open the profile/settings menu (your avatar) to change your name and avatar, switch dark mode, **unlock all levels** (for testing), or **reset progress**.
+- Progress is saved to `.java-quest/save.json` in your user folder (with a backup copy in the browser), so it's kept when you close the game. To move it to another computer, copy that file. Open the profile/settings menu (your avatar) to change your name and avatar, switch dark mode, **unlock all levels** (for testing), or **reset progress**.
 
 ---
 
@@ -113,7 +113,8 @@ Press `Ctrl+C` in the terminal to stop both.
 
 ```
 server/                 Express API (runs Java)
-  index.ts              /api/health, /api/run, /api/submit
+  index.ts              /api/health, /api/run, /api/submit, /api/save
+  saves.ts              reads and writes the save file (~/.java-quest/save.json)
   java.ts               finds the JDK and checks its version
   runner.ts             temp folder → java Main.java, timeout, output limit, error parsing
   judge.ts              output tests and hidden "harness" tests
@@ -133,7 +134,7 @@ src/
   lib/
     progress.ts         pure game logic (XP, stars, unlocks, streaks, badges)
     compare.ts          output comparison
-    storage.ts          localStorage save/load
+    storage.ts          save/load: the server's save file, with localStorage as a backup
   state/game.tsx        React context wrapping the game state
 ```
 

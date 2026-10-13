@@ -24,6 +24,8 @@ export interface Settings {
 
 export interface GameState {
   version: 1;
+  /** When the state last changed (ms since epoch); decides which of two saves is newer. */
+  updatedAt: number;
   player: { name: string; avatar: number };
   xp: number;
   coins: number;
@@ -40,6 +42,7 @@ export interface GameState {
 export function createInitialState(settings?: Partial<Settings>): GameState {
   return {
     version: 1,
+    updatedAt: 0,
     player: { name: 'Adventurer', avatar: 0 },
     xp: 0,
     coins: 0,

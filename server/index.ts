@@ -4,6 +4,7 @@ import type { RunRequest, SubmitRequest } from '../src/lib/api-types';
 import { loadRegions } from './content';
 import { detectJava } from './java';
 import { judge, runForPlayer } from './judge';
+import { isSave, readSave, SAVE_FILE, writeSave } from './saves';
 
 const PORT = Number(process.env.PORT ?? 3001);
 
@@ -14,7 +15,32 @@ const levelCount = regions.reduce((n, r) => n + r.levels.length, 0);
 console.log(`Loaded ${regions.length} regions, ${levelCount} levels.`);
 console.log(java.ok ? `✔ ${java.message}` : `✘ ${java.message}`);
 
+console.log(`Progress is saved to ${SAVE_FILE}`);
+
 const app = express();
+
+// The save holds every code draft, so it gets a bigger body limit than the other routes.
+// sendBeacon (used when the tab closes) can only POST, and sends text/plain, hence the type option.
+const saveBody = express.json({ limit: '5mb', type: () => true });
+const storeSave: express.RequestHandler = async (req, res) => {
+  if (!isSave(req.body)) {
+    res.status(400).json({ error: 'Not a Java Quest save' });
+    return;
+  }
+  try {
+    res.json({ saved: await writeSave(req.body) });
+  } catch (err) {
+    console.error('Could not write the save file:', err);
+    res.status(500).json({ error: 'Could not write the save file' });
+  }
+};
+
+app.get('/api/save', async (_req, res) => {
+  res.json({ save: await readSave() });
+});
+app.put('/api/save', saveBody, storeSave);
+app.post('/api/save', saveBody, storeSave);
+
 app.use(express.json({ limit: '100kb' }));
 
 app.get('/api/health', async (_req, res) => {
